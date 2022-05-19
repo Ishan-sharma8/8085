@@ -1,0 +1,19 @@
+MOV SI,3000H  ; SI=3000
+MOV CX,0AH   ; CX=00 0A
+XOR AL,AL         ; AL=00
+MOV [SI],0AH       ; [3000]=0A
+INC SI           ;3001
+MOV [SI],00H      ;[3001]=00
+ADD AL,01H     ; AL=01
+INC SI               ; 3002
+MOV [SI],AL    ; 3002= 01
+INC SI               ; 3003
+MOV [SI],AL    ;3003= 01
+Back: ADD AL,[SI] ;  01,01 =02
+INC SI                     ; 3004
+MOV [SI],AL          ; 3004=02
+DEC SI                    ; 3003
+MOV AL,[SI]          ; AL=01
+INC SI                     ; 3004
+LOOP Back
+HLT           ; halt!
