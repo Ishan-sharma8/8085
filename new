@@ -1,0 +1,62 @@
+15/6
+
+MOV AX, ’15’               ; AX=31    35
+MOV BH, ’6’               ; BX=36   00
+SUB AX,3030h             ; AX=01   05
+SUB BH,30H                ; BH=06  00
+AAD                              ; AX=00  0F
+DIV BH                         ; AX=03   02
+ADD AX,3030H           ; AX=33    32
+MOV DX,AX                ; DX=33    32
+HLT
+
+
+largest of 8
+MOV CL, 0AH
+LEA SI,[1000H]
+MOV AL,[SI]
+L1:INC SI
+MOV BL,[SI]
+CMP AL,BL
+JC L2
+JMP L3                
+L2: MOV AL,BL
+L3: DEC CL
+JNZ L1
+MOV [100AH],AL
+HLT
+
+largest of 16
+MOV BX, 1000H               ; BX=10    00
+MOV CL, [BX]               ; CL=00   05
+INC BX                           ; BX=10   01
+MOV AX, [BX]               ; AX=30  20
+DEC CL                           ; CL=00  04
+BACK: INC BX               ; BX=10   02
+INC BX                           ; BX=10   03
+CMP AX,[BX]                
+JNC Next
+MOV AX, [BX]               ; AX= 50  40  70  60  90 80
+Next: DEC CL                  ; CL=00   03   00  02 00 01
+JNZ Back
+MOV [1020H],AX           ; AX= 90  80  
+HLT
+
+
+count of positive and negative
+MOV CL, 0AH                
+MOV BL, 00H                
+MOV DL,00H                            
+LEA SI,[1000H]                
+L1:MOV AL,[SI]                             
+SHL AL,01                
+JNC L2                            
+INC DL                
+JMP L3
+L2: INC BL                
+L3: INC SI                   
+DEC CL
+JNZ L1            
+MOV [100AH],BL
+MOV [100BH],DL 
+HLT
